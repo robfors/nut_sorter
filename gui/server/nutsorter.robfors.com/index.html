@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  <meta charset="utf-8">
+  <title>Nut Sorter: Group 6</title>
+  <script type="text/javascript">
+   $( document ).ready(function()
+    {
+      if ("WebSocket" in window)
+      {
+        ws = new WebSocket("ws://robfors.com:9998/");
+        
+        ws.onopen = function()
+        {
+        };
+
+        ws.onmessage = function (evt) 
+        { 
+          var message = evt.data;
+          //alert(message);
+          var match = /^([^:]+):(.+)/.exec(message);
+          key = match[1];
+          value = match[2];
+          //console.log(value);
+          switch(key)
+          {
+            case "update_small_steel_nut_count":
+              $('#small_steel_nut_count').text(value);
+              break;
+            case "update_big_brass_nut_count":
+              $('#big_brass_nut_count').text(value);
+              break;
+            case "update_big_nylon_nut_count":
+              $('#big_nylon_nut_count').text(value);
+              break;
+            case "update_small_brass_nut_count":
+              $('#small_brass_nut_count').text(value);
+              break;
+            case "update_coin_count":
+              $('#coin_count').text(value);
+              break;
+            case "update_status":
+              update_status(value);
+              break;
+          }
+            
+        };
+        
+        ws.onclose = function()
+        { 
+          //alert("Connection is closed...");
+          update_status("Offline");
+        };
+      }
+      else
+      {
+        alert("Browser out of date.");
+      }
+      
+      function update_status(status)
+      {
+        $('#status').text(status);
+      };
+
+    });
+  </script>
+  <style>
+    html
+    {
+      height: 100%;
+    }
+    
+    body
+    {
+      height: 100%;
+      /*color: #4c4c4c;*/
+      color: #e5e5e5;
+      background-color: #004080;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    #main p
+    {
+      font-family: Ubuntu;
+      font-size: 50px;
+      text-align: center;
+    }
+    
+    #main > div
+    {
+      display: inline-block;
+      margin: 30px;
+    }
+
+    .count
+    {
+      font-family: Ubuntu;
+      font-size: 50px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="main">
+    <p>Status: <span id="status">Offline</span></p>
+    <div>
+      <img src="silver_nut.png" alt="Small Steel Nut" width="50">
+      <div id="small_steel_nut_count" class="count">--</div>
+    </div>
+    <div>
+      <img src="bronze_nut.png" alt="Big Brass Nut" width="100">
+      <div id="big_brass_nut_count" class="count">--</div>
+    </div>
+    <div>
+      <img src="white_nut.png" alt="Big Nylon Nut" width="100">
+      <div id="big_nylon_nut_count" class="count">--</div>
+    </div>
+    <div>
+      <img src="bronze_nut.png" alt="Small Brass Nut" width="50">
+      <div id="small_brass_nut_count" class="count">--</div>
+    </div>
+    <div>
+      <img src="coin.png" alt="Small Steel Nut" width="100">
+      <div id="coin_count" class="count">--</div>
+    </div>
+  </div>
+</body>
+</html>
