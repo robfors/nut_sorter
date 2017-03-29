@@ -11,7 +11,7 @@ class Chute
   
   public:
   
-  enum  class ObjectType { Coin, SmallSteelNut, SmallBrassNut, BigBrassNut, BigNylonNut };
+  enum  class ObjectType { Coin, SmallSteelNut, SmallBrassNut, BigBrassNut, BigNylonNut, Empty };
   
   Chute();
   

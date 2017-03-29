@@ -16,7 +16,7 @@ class FerromagneticMeasurement
   
   FerromagneticMeasurement(Disk* disk, Angle start_angle, Angle end_angle);
   
-  void setup();
+  boolean setup();
   void tick();
   
   private:

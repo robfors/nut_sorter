@@ -18,12 +18,15 @@ FerromagneticMeasurement::FerromagneticMeasurement(Disk* disk, Angle start_angle
 }
 
 
-void FerromagneticMeasurement::setup()
+boolean FerromagneticMeasurement::setup()
 {
-  _sensor.setup();
+  if (!_sensor.setup())
+    return false;
   _current_slot = _disk->first_slot();
   _was_slot_over_sensor = false;
+
   _is_setup = true;
+  return true;
 }
 
 

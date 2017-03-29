@@ -49,15 +49,23 @@ void end()
 void setup()
 {
   Serial.begin(9600);
+  Serial.println("|reset");
   Serial.println("calibrating...");
+  Serial.println("|calibrating");
   AFMS.begin();
   disk.setup();
   chute.setup();
   initializer.setup();
-  ferromagnetic_measurement.setup();
+  if (!ferromagnetic_measurement.setup())
+  {
+    Serial.println("ferromagnetic measurer setup error...");
+    Serial.println("|setup_error");
+    end();
+  }
   if (!conductivity_measurement.setup())
   {
     Serial.println("conductivity measurer setup error...");
+    Serial.println("|setup_error");
     end();
   }
   force_measurement.setup();
@@ -65,6 +73,7 @@ void setup()
   interpreter.setup();
   delay(5000);
   Serial.println("ready...");
+  Serial.println("|running");
   disk.start();
 }
 
