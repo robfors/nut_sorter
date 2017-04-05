@@ -1,7 +1,7 @@
-#include "Disk.h"
+#include "Carousel.h"
 
 
-const float Disk::_speed = 4.0; // rpm
+const float Carousel::_speed = 4.0; // rpm
 
 
 //
@@ -9,9 +9,10 @@ const float Disk::_speed = 4.0; // rpm
 //
 
 
-Disk::Disk(StepperMotor* motor, Angle origin_offset)
+Carousel::Carousel(StepperMotor* motor, Angle origin_offset)
 : _light_sensor(_light_sensor_pin, _light_sensor_threshold),
   _slots{
+    // here we add the slots
     Slot(this, Angle(33.5), Angle(56.0)),
     Slot(this, Angle(90.0), Angle(113.0)),
     Slot(this, Angle(150.5), Angle(176.0)),
@@ -26,7 +27,7 @@ Disk::Disk(StepperMotor* motor, Angle origin_offset)
 }
 
 
-Angle Disk::angle()
+Angle Carousel::angle()
 {
   if (!_is_setup)
     return Angle(0.0);
@@ -35,7 +36,7 @@ Angle Disk::angle()
 }
 
 
-Slot* Disk::first_slot()
+Slot* Carousel::first_slot()
 {
   if (!_is_setup)
     return NULL;
@@ -51,7 +52,7 @@ Slot* Disk::first_slot()
 }
 
 
-Slot* Disk::next_slot(Slot* slot)
+Slot* Carousel::next_slot(Slot* slot)
 {
   if (!_is_setup)
     return NULL;
@@ -73,7 +74,7 @@ Slot* Disk::next_slot(Slot* slot)
 }
 
 
-void Disk::setup()
+void Carousel::setup()
 {
   _light_sensor.setup();
   
@@ -81,6 +82,10 @@ void Disk::setup()
   while (!_light_sensor.is_lit())
     _motor->tick();
   
+  // if the system was started with the light sensor already
+  // uncoverd we wont know the exact angle of the carusel
+  // so now turn half a rotation and repeat to enusre an
+  // accurate calibration proccess
   _motor->turn_angle(Angle(180.0), _direction, _speed);
   while (_motor->is_turning())
     _motor->tick();
@@ -98,7 +103,7 @@ void Disk::setup()
 }
 
 
-void Disk::start()
+void Carousel::start()
 {
   if (!_is_setup)
     return;

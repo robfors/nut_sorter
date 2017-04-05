@@ -1,6 +1,10 @@
 #ifndef _NUT_SORTER_H_
 #define _NUT_SORTER_H_
 
+// THIS CLASS WAS NEVER IMPLEMENTED
+// to further clean the code base it would be ideal to put most of
+// was is in the main file into this class
+
 #include <Arduino.h>
 #include <Wire.h>
 
@@ -12,7 +16,7 @@
 #include "Slot.h"
 #include "LightSensor.h"
 #include "StepperMotor.h"
-#include "Disk.h"
+#include "Carousel.h"
 #include "Interpreter.h"
 #include "HMC5883L.h"
 #include "FerromagneticSensor.h"
@@ -31,16 +35,11 @@ class NutSorter
   
   NutSorter();
   
-  void turn_to();
+
   
   private:
   
-  Slot* _next_slot;
-  Disk* _disk;
-  Angle _start_angle;
-  boolean _is_setup;
-  
-  void _process_slot(Slot* slot);
+
   
 };
 

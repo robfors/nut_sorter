@@ -6,10 +6,10 @@
 //
 
 
-FerromagneticMeasurement::FerromagneticMeasurement(Disk* disk, Angle start_angle, Angle end_angle)
+FerromagneticMeasurement::FerromagneticMeasurement(Carousel* carousel, Angle start_angle, Angle end_angle)
 {
   _end_angle = end_angle;
-  _disk = disk;
+  _carousel = carousel;
   _current_slot = NULL;
   _distance_at_last_measurement = 0;
   _start_angle = start_angle;
@@ -22,7 +22,7 @@ boolean FerromagneticMeasurement::setup()
 {
   if (!_sensor.setup())
     return false;
-  _current_slot = _disk->first_slot();
+  _current_slot = _carousel->first_slot();
   _was_slot_over_sensor = false;
 
   _is_setup = true;
@@ -79,7 +79,7 @@ void FerromagneticMeasurement::tick()
 void FerromagneticMeasurement::_finish_with_slot(boolean has_ferromagnetic_object)
 {
   _current_slot->has_ferromagnetic_object = has_ferromagnetic_object;
-  _current_slot = _disk->next_slot(_current_slot);
+  _current_slot = _carousel->next_slot(_current_slot);
   _was_slot_over_sensor = false;
 }
 

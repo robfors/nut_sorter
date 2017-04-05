@@ -1,6 +1,12 @@
 #ifndef _LIGHT_SENSOR_H_
 #define _LIGHT_SENSOR_H_
 
+/* This simple class reads a value from a specified analogue pin where
+ * a light sensor is connected (after the amp curcit).
+ * The pin is set HIGH, with high impedance.
+ * When we read the pin, a higher voltage/value indicates more light.
+ */
+
 #include <Arduino.h>
 
 

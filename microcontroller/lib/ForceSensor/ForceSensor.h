@@ -1,6 +1,10 @@
 #ifndef _FORCE_SENSOR_H_
 #define _FORCE_SENSOR_H_
 
+/* This simple class reads a value from a specified analogue pin where
+ * a force sensor is connected (after the amp curcit).
+ */
+
 #include <Arduino.h>
 
 

@@ -1,6 +1,20 @@
 #ifndef _FERROMAGNETIC_SENSOR_H_
 #define _FERROMAGNETIC_SENSOR_H_
 
+/* This code communicates with a HMC5883L magnetometer to test for a
+ * ferromagnetic material. Given this was not the intended use the HMC5883L
+ * some functionality had to be added to this class.
+ * The HMC5883L's values are different every time it starts.
+ * To solve for this we obtain an average value that the sensor naturaly
+ * seems to be operating at. This average is continuously updaded with
+ * a moving average on every tick().
+ * when we call 'is_ferromagnetic_material_present()', it will compare the
+ * current value begin returned from the HMC5883L with the average and we
+ * can assume a ferromagnetic object is present if the differnce is
+ * greater then the threshold specified in this header.
+ * 
+ */
+
 #include <Arduino.h>
 #include <Wire.h>
 #include <HMC5883L.h>

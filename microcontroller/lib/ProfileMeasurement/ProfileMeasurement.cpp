@@ -6,11 +6,11 @@
 //
 
 
-ProfileMeasurement::ProfileMeasurement(Disk* disk, Angle start_angle, Angle end_angle)
+ProfileMeasurement::ProfileMeasurement(Carousel* carousel, Angle start_angle, Angle end_angle)
 : _sensor(_pin, _light_sensor_threshold)
 {
   _end_angle = end_angle;
-  _disk = disk;
+  _carousel = carousel;
   _current_slot = NULL;
   _distance_at_last_measurement = 0;
   _start_angle = start_angle;
@@ -23,7 +23,7 @@ void ProfileMeasurement::setup()
 {
   _sensor.setup();
   
-  _current_slot = _disk->first_slot();
+  _current_slot = _carousel->first_slot();
   _was_slot_over_sensor = false;
   _is_setup = true;
 }
@@ -73,7 +73,7 @@ void ProfileMeasurement::tick()
 
 void ProfileMeasurement::_finish_with_slot()
 {
-  _current_slot = _disk->next_slot(_current_slot);
+  _current_slot = _carousel->next_slot(_current_slot);
   _was_slot_over_sensor = false;
 }
 

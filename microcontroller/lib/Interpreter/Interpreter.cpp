@@ -6,10 +6,10 @@
 //
 
 
-Interpreter::Interpreter(Disk* disk, Chute* chute, Angle start_angle)
+Interpreter::Interpreter(Carousel* carousel, Chute* chute, Angle start_angle)
 {
   _chute = chute;
-  _disk = disk;
+  _carousel = carousel;
   _next_slot = NULL;
   _start_angle = start_angle;
   _is_setup = false;
@@ -18,7 +18,7 @@ Interpreter::Interpreter(Disk* disk, Chute* chute, Angle start_angle)
 
 void Interpreter::setup()
 {
-  _next_slot = _disk->first_slot();  
+  _next_slot = _carousel->first_slot();  
   _is_setup = true;
 }
 
@@ -31,7 +31,7 @@ void Interpreter::tick()
   if (_next_slot->is_over(_start_angle))
   {
     _process_slot(_next_slot);
-    _next_slot = _disk->next_slot(_next_slot);
+    _next_slot = _carousel->next_slot(_next_slot);
   }
 }
 
@@ -68,6 +68,7 @@ void Interpreter::_process_slot(Slot* slot)
   else
     object_type = Chute::ObjectType::Empty;
   
+  // this print out is for the gui to keep counts
   switch (object_type)
   {
   case Chute::ObjectType::SmallSteelNut:

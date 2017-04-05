@@ -6,9 +6,9 @@
 //
 
 
-Initializer::Initializer(Disk* disk, Angle start_angle)
+Initializer::Initializer(Carousel* carousel, Angle start_angle)
 {
-  _disk = disk;
+  _carousel = carousel;
   _next_slot = NULL;
   _start_angle = start_angle;
   _is_setup = false;
@@ -17,7 +17,7 @@ Initializer::Initializer(Disk* disk, Angle start_angle)
 
 void Initializer::setup()
 {
-  _next_slot = _disk->first_slot();  
+  _next_slot = _carousel->first_slot();  
   _is_setup = true;
 }
 
@@ -30,7 +30,7 @@ void Initializer::tick()
   if (_next_slot->is_over(_start_angle))
   {
     _process_slot(_next_slot);
-    _next_slot = _disk->next_slot(_next_slot);
+    _next_slot = _carousel->next_slot(_next_slot);
   }
 }
 

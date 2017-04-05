@@ -1,6 +1,14 @@
 #ifndef _PROFILE_H_
 #define _PROFILE_H_
 
+/* This class saves an array of sample from a light sensor.
+ * Right now all it does is give us an average sample.
+ * 
+ * Ideally it was going return the length of solid and air gaps of objects
+ * so we could figure out exactly what kind of object it is, however
+ * the samples were not reliable enough to use these methods.
+ */ 
+
 #include <Arduino.h>
 
 

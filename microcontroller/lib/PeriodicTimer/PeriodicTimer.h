@@ -1,6 +1,14 @@
 #ifndef _PERIODIC_TIMER_H_
 #define _PERIODIC_TIMER_H_
 
+/* Use this to setup delays without blocking.
+ * 
+ * This differs from using the Timer class as the timer will be consistent
+ * by incrementing the stop time rather that starting a new timer when we
+ * find out that the old one has completed.
+ */
+
+
 #include <Arduino.h>
 
 

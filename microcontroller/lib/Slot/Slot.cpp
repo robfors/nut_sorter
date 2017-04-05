@@ -1,20 +1,20 @@
 #include "Slot.h"
 
-#include "Disk.h"
+#include "Carousel.h"
 
 //
 // public
 //
 
 
-Slot::Slot(Disk* disk, Angle start_offset_angle, Angle end_offset_angle)
+Slot::Slot(Carousel* carousel, Angle start_offset_angle, Angle end_offset_angle)
 {
   has_ferromagnetic_object = false;
   has_conductive_object = false;
   has_heavy_object = false;
   profile.clear();
   
-  _disk = disk;
+  _carousel = carousel;
   _end_offset_angle = end_offset_angle;
   _odometer_start_angle = 0.0;
   _start_offset_angle = start_offset_angle;
@@ -53,13 +53,13 @@ void Slot::reset_odometer()
 
 Angle Slot::start_angle()
 {
-  return _disk->angle() + _start_offset_angle;
+  return _carousel->angle() + _start_offset_angle;
 }
 
 
 Angle Slot::end_angle()
 {
-  return _disk->angle() + _end_offset_angle;
+  return _carousel->angle() + _end_offset_angle;
 }
 
 

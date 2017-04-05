@@ -10,20 +10,20 @@
 #include "Slot.h"
 #include "LightSensor.h"
 #include "StepperMotor.h"
-#include "Disk.h"
+#include "Carousel.h"
 
 
 AdafruitMotorShield AFMS = AdafruitMotorShield();
 AdafruitStepperMotor* adafruit_stepper_motor = AFMS.getStepper(200, 2);
 StepperMotor stepper_motor(adafruit_stepper_motor, 200, StepperMotor::StepType::Microstep, false);
-Disk disk(&stepper_motor, Angle(66.5));
+Carousel carousel(&stepper_motor, Angle(66.5));
 
 
 void setup()
 {
   AFMS.begin();
   Serial.begin(9600);
-  disk.setup();
+  carousel.setup();
   Serial.println("calibrated...");
   Serial.println("enter angle: ");
 }

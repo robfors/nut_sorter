@@ -1,6 +1,23 @@
 #ifndef _CONDUCTIVITY_SENSOR_H_
 #define _CONDUCTIVITY_SENSOR_H_
 
+/* 1- we set this up by specifying a array of pins.
+ * 2- call setup
+ * 3- when we want to make a measurment we call 'measure()'
+ * 4- we repeatedly call is_result_ready() untill it returns true (we do
+ *    this so the code can wait without blocking)
+ * 5- call 'result()' to find out if a conductive material is present
+ * repeat steps 3 to 5
+ * 
+ * 
+ * This code works by seting up one of the pins as a current source (HIGH, with high impedance)
+ * and setting the rest of the pins as a current sync (LOW, with low impedance).
+ * We know a conductive material is present if the source pin's voltage is low.
+ * The code will do this enough times to test for a connection between any two of the pins.
+ * 
+ */
+ 
+
 #include <Arduino.h>
 
 #include "Timer.h"

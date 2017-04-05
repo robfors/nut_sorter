@@ -7,11 +7,11 @@ int ConductivityMeasurement::_sensor_pins[] = {5, 6, 7};
 //
 
 
-ConductivityMeasurement::ConductivityMeasurement(Disk* disk, Angle start_angle, Angle end_angle)
+ConductivityMeasurement::ConductivityMeasurement(Carousel* carousel, Angle start_angle, Angle end_angle)
 : _sensor(_sensor_pins, _sensor_wire_count)
 {
   _end_angle = end_angle;
-  _disk = disk;
+  _carousel = carousel;
   _current_slot = NULL;
   _distance_at_last_measurement = 0;
   _start_angle = start_angle;
@@ -25,7 +25,7 @@ boolean ConductivityMeasurement::setup()
   if (!_sensor.setup())
     return false;
   
-  _current_slot = _disk->first_slot();
+  _current_slot = _carousel->first_slot();
   _was_slot_over_sensor = false;
   _is_setup = true;
 
@@ -86,7 +86,7 @@ void ConductivityMeasurement::tick()
 void ConductivityMeasurement::_finish_with_slot(boolean has_conductive_object)
 {
   _current_slot->has_conductive_object = has_conductive_object;
-  _current_slot = _disk->next_slot(_current_slot);
+  _current_slot = _carousel->next_slot(_current_slot);
   _was_slot_over_sensor = false;
 }
 

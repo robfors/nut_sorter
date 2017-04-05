@@ -1,6 +1,16 @@
 #ifndef _STEPPERMOTOR_H_
 #define _STEPPERMOTOR_H_
 
+/* This class abstracts the functionality of a stepper motor.
+ * 
+ * We use this to conveniently turn angles specified while keeping track
+ * of its positon.
+ * 
+ * This class is a task. As such the 'tick()' method must be called
+ * often to ensure we dont miss sending any steps to the motor shield,
+ * causing the motor to become out of sync with the postion we are tracking.
+ */
+
 #include <Arduino.h>
 #include <Wire.h>
 

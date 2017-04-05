@@ -10,7 +10,7 @@
 #include "Slot.h"
 #include "LightSensor.h"
 #include "StepperMotor.h"
-#include "Disk.h"
+#include "Carousel.h"
 #include "VarSpeedServo.h"
 #include "Servo.h"
 #include "Chute.h"
@@ -25,27 +25,31 @@
 #include "ProfileMeasurement.h"
 #include "Initializer.h"
 
+// here we declare all the system's concurrent tasks
 
+// all the angle offsets for every component can be adjusted here to
+//   account for any changes in hardware
 AdafruitMotorShield AFMS = AdafruitMotorShield();
 AdafruitStepperMotor* adafruit_stepper_motor = AFMS.getStepper(200, 2);
 StepperMotor stepper_motor(adafruit_stepper_motor, 200, StepperMotor::StepType::Microstep, false);
-Disk disk(&stepper_motor, Angle(66.5));
+Carousel carousel(&stepper_motor, Angle(66.5)); // this offset may need to be adjusted in different lighting condtions 
 Chute chute;
 
-Initializer initializer(&disk, Angle(360.0));
-FerromagneticMeasurement ferromagnetic_measurement(&disk, Angle(123.0), Angle(125.5));
-ConductivityMeasurement conductivity_measurement(&disk, Angle(179.0), Angle(196.5));
-ForceMeasurement force_measurement(&disk, Angle(230.0), Angle(266.5));
-ProfileMeasurement profile_measurement(&disk, Angle(295.0), Angle(298.5));
-Interpreter interpreter(&disk, &chute, Angle(349.0));
+Initializer initializer(&carousel, Angle(360.0));
+FerromagneticMeasurement ferromagnetic_measurement(&carousel, Angle(123.0), Angle(125.5));
+ConductivityMeasurement conductivity_measurement(&carousel, Angle(179.0), Angle(196.5));
+ForceMeasurement force_measurement(&carousel, Angle(230.0), Angle(266.5));
+ProfileMeasurement profile_measurement(&carousel, Angle(295.0), Angle(298.5));
+Interpreter interpreter(&carousel, &chute, Angle(349.0));
 
-
+// call this in the event of an error
 void end()
 {
   while (true) {}
 }
 
-
+// setup every task (eg. pin modes)
+// some return false to indicate an error
 void setup()
 {
   Serial.begin(9600);
@@ -53,7 +57,7 @@ void setup()
   Serial.println("calibrating...");
   Serial.println("|calibrating");
   AFMS.begin();
-  disk.setup();
+  carousel.setup();
   chute.setup();
   initializer.setup();
   if (!ferromagnetic_measurement.setup())
@@ -74,10 +78,16 @@ void setup()
   delay(5000);
   Serial.println("ready...");
   Serial.println("|running");
-  disk.start();
+  carousel.start();
 }
 
-
+// this is the reactor loop
+// no calls should block here!
+// if they do, all other tasks will miss deadlines
+// the tick() method is called for each task
+//    often the task will simply return
+//    sometimes the task will have work do to, it will quickly run and return
+//    execution to the ractor loop for the next task
 void loop()
 {
   stepper_motor.tick();

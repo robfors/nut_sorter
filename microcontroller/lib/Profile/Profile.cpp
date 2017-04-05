@@ -14,6 +14,7 @@ Profile::Profile()
 
 void Profile::add_sample(unsigned int distance, unsigned int sample)
 {
+  // one limitation with the implementation is that the first sample in _sample[] will always end up being 0
   if (distance >= _max_size)
     return;
   if (distance <= _last_sample_index)

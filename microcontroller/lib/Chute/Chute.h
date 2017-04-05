@@ -1,6 +1,11 @@
 #ifndef _CHUTE_H_
 #define _CHUTE_H_
 
+/* This object will simply turn the chute to the requested cup.
+ * 
+ * The angles for each cup is defined in the turn_to_cup_for method.
+ */
+
 #include <Arduino.h>
 
 #include "Angle.h"
