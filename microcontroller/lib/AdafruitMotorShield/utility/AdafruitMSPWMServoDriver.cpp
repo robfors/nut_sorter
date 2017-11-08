@@ -17,40 +17,35 @@
 
 #include <AdafruitMSPWMServoDriver.h>
 #include <Wire.h>
-#if defined(ARDUINO_SAM_DUE)
- #define WIRE Wire1
-#else
- #define WIRE Wire
-#endif
 
 
-AdafruitMSPWMServoDriver::AdafruitMSPWMServoDriver(uint8_t addr) {
+AdafruitMSPWMServoDriver::AdafruitMSPWMServoDriver(uint8_t addr)
+{
   _i2caddr = addr;
 }
 
-void AdafruitMSPWMServoDriver::begin(void) {
- WIRE.begin();
- reset();
+void AdafruitMSPWMServoDriver::begin(void)
+{
+  Wire.begin();
+  reset();
 }
 
 
-void AdafruitMSPWMServoDriver::reset(void) {
- write8(PCA9685_MODE1, 0x0);
+void AdafruitMSPWMServoDriver::reset(void)
+{
+  write8(PCA9685_MODE1, 0x0);
 }
 
-void AdafruitMSPWMServoDriver::setPWMFreq(float freq) {
-  //Serial.print("Attempting to set freq ");
-  //Serial.println(freq);
-  
+
+void AdafruitMSPWMServoDriver::setPWMFreq(float freq)
+{
   freq *= 0.9;  // Correct for overshoot in the frequency setting (see issue #11).
-
+  
   float prescaleval = 25000000;
   prescaleval /= 4096;
   prescaleval /= freq;
   prescaleval -= 1;
-  //Serial.print("Estimated pre-scale: "); Serial.println(prescaleval);
   uint8_t prescale = floor(prescaleval + 0.5);
-  //Serial.print("Final pre-scale: "); Serial.println(prescale);  
   
   uint8_t oldmode = read8(PCA9685_MODE1);
   uint8_t newmode = (oldmode&0x7F) | 0x10; // sleep
@@ -63,51 +58,57 @@ void AdafruitMSPWMServoDriver::setPWMFreq(float freq) {
   //  Serial.print("Mode now 0x"); Serial.println(read8(PCA9685_MODE1), HEX);
 }
 
-void AdafruitMSPWMServoDriver::setPWM(uint8_t num, uint16_t on, uint16_t off) {
+
+void AdafruitMSPWMServoDriver::setPWM(uint8_t num, uint16_t on, uint16_t off)
+{
   //Serial.print("Setting PWM "); Serial.print(num); Serial.print(": "); Serial.print(on); Serial.print("->"); Serial.println(off);
 
-  WIRE.beginTransmission(_i2caddr);
-#if ARDUINO >= 100
-  WIRE.write(LED0_ON_L+4*num);
-  WIRE.write(on);
-  WIRE.write(on>>8);
-  WIRE.write(off);
-  WIRE.write(off>>8);
-#else
-  WIRE.send(LED0_ON_L+4*num);
-  WIRE.send((uint8_t)on);
-  WIRE.send((uint8_t)(on>>8));
-  WIRE.send((uint8_t)off);
-  WIRE.send((uint8_t)(off>>8));
-#endif
-  WIRE.endTransmission();
+  Wire.beginTransmission(_i2caddr);
+  #if ARDUINO >= 100
+    Wire.write(LED0_ON_L+4*num);
+    Wire.write(on);
+    Wire.write(on>>8);
+    Wire.write(off);
+    Wire.write(off>>8);
+  #else
+    Wire.send(LED0_ON_L+4*num);
+    Wire.send((uint8_t)on);
+    Wire.send((uint8_t)(on>>8));
+    Wire.send((uint8_t)off);
+    Wire.send((uint8_t)(off>>8));
+  #endif
+  Wire.endTransmission();
 }
 
-uint8_t AdafruitMSPWMServoDriver::read8(uint8_t addr) {
-  WIRE.beginTransmission(_i2caddr);
-#if ARDUINO >= 100
-  WIRE.write(addr);
-#else
-  WIRE.send(addr);
-#endif
-  WIRE.endTransmission();
 
-  WIRE.requestFrom((uint8_t)_i2caddr, (uint8_t)1);
-#if ARDUINO >= 100
-  return WIRE.read();
-#else
-  return WIRE.receive();
-#endif
+uint8_t AdafruitMSPWMServoDriver::read8(uint8_t addr)
+{
+  Wire.beginTransmission(_i2caddr);
+  #if ARDUINO >= 100
+    Wire.write(addr);
+  #else
+    Wire.send(addr);
+  #endif
+  Wire.endTransmission();
+  
+  Wire.requestFrom((uint8_t)_i2caddr, (uint8_t)1);
+  #if ARDUINO >= 100
+    return Wire.read();
+  #else
+    return Wire.receive();
+  #endif
 }
 
-void AdafruitMSPWMServoDriver::write8(uint8_t addr, uint8_t d) {
-  WIRE.beginTransmission(_i2caddr);
-#if ARDUINO >= 100
-  WIRE.write(addr);
-  WIRE.write(d);
-#else
-  WIRE.send(addr);
-  WIRE.send(d);
-#endif
-  WIRE.endTransmission();
+
+void AdafruitMSPWMServoDriver::write8(uint8_t addr, uint8_t d)
+{
+  Wire.beginTransmission(_i2caddr);
+  #if ARDUINO >= 100
+    Wire.write(addr);
+    Wire.write(d);
+  #else
+    Wire.send(addr);
+    Wire.send(d);
+  #endif
+  Wire.endTransmission();
 }
