@@ -6,7 +6,7 @@
 //
 
 
-ForceMeasurement::ForceMeasurement(Carousel* carousel, Angle start_angle, Angle end_angle)
+ForceMeasurement::ForceMeasurement(Carousel* carousel, CoterminalAngle start_angle, CoterminalAngle end_angle)
 : _sensor(_pin)
 {
   _end_angle = end_angle;

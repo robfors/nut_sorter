@@ -10,21 +10,21 @@
 #include <Arduino.h>
 
 #include "VarSpeedServo.h" 
-#include "Angle.h"
+#include "CoterminalAngle.h"
 
 class Servo
 {
   
   public:
   
-  Servo(int _pin, Angle inital_angle);
+  Servo(int _pin, CoterminalAngle inital_angle);
   
   void setup();
-  void turn_to_angle(Angle angle);
+  void turn_to_angle(CoterminalAngle angle);
   
   private:
   
-  Angle _inital_angle;
+  CoterminalAngle _inital_angle;
   boolean _is_setup;
   int _pin;
   VarSpeedServo _var_speed_servo;

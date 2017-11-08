@@ -6,7 +6,7 @@
 //
 
 
-FerromagneticMeasurement::FerromagneticMeasurement(Carousel* carousel, Angle start_angle, Angle end_angle)
+FerromagneticMeasurement::FerromagneticMeasurement(Carousel* carousel, CoterminalAngle start_angle, CoterminalAngle end_angle)
 {
   _end_angle = end_angle;
   _carousel = carousel;

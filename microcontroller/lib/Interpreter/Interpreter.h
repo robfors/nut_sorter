@@ -32,7 +32,7 @@ class Interpreter
   
   public:
   
-  Interpreter(Carousel* carousel, Chute* chute, Angle start_angle);
+  Interpreter(Carousel* carousel, Chute* chute, CoterminalAngle start_angle);
   
   void setup();
   void tick();
@@ -42,7 +42,7 @@ class Interpreter
   Chute* _chute;
   Slot* _next_slot;
   Carousel* _carousel;
-  Angle _start_angle;
+  CoterminalAngle _start_angle;
   boolean _is_setup;
   
   void _process_slot(Slot* slot);

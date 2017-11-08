@@ -1,6 +1,6 @@
 #include "Chute.h"
 
-Angle Chute::_inital_angle = Angle(90.0);
+CoterminalAngle Chute::_inital_angle = CoterminalAngle(90.0);
 
 //
 // public
@@ -30,19 +30,19 @@ void Chute::turn_to_cup_for(ObjectType object_type)
   switch (object_type)
   {
   case ObjectType::Coin:
-    _servo.turn_to_angle(Angle(30.0));
+    _servo.turn_to_angle(CoterminalAngle(30.0));
     break;
   case ObjectType::SmallSteelNut:
-    _servo.turn_to_angle(Angle(175.0));
+    _servo.turn_to_angle(CoterminalAngle(175.0));
     break;
   case ObjectType::SmallBrassNut:
-    _servo.turn_to_angle(Angle(65.0));
+    _servo.turn_to_angle(CoterminalAngle(65.0));
     break;
   case ObjectType::BigBrassNut:
-    _servo.turn_to_angle(Angle(140.0));
+    _servo.turn_to_angle(CoterminalAngle(140.0));
     break;
   case ObjectType::BigNylonNut:
-    _servo.turn_to_angle(Angle(100.0));
+    _servo.turn_to_angle(CoterminalAngle(100.0));
     break;
   }
 }

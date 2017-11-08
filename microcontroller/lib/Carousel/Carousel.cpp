@@ -9,16 +9,16 @@ const float Carousel::_speed = 4.0; // rpm
 //
 
 
-Carousel::Carousel(StepperMotor* motor, Angle origin_offset)
+Carousel::Carousel(StepperMotor* motor, CoterminalAngle origin_offset)
 : _light_sensor(_light_sensor_pin, _light_sensor_threshold),
   _slots{
     // here we add the slots
-    Slot(this, Angle(33.5), Angle(56.0)),
-    Slot(this, Angle(90.0), Angle(113.0)),
-    Slot(this, Angle(150.5), Angle(176.0)),
-    Slot(this, Angle(212.0), Angle(236.0)),
-    Slot(this, Angle(274.0), Angle(296.5)),
-    Slot(this, Angle(328.5), Angle(356.0))
+    Slot(this, CoterminalAngle(33.5), CoterminalAngle(56.0)),
+    Slot(this, CoterminalAngle(90.0), CoterminalAngle(113.0)),
+    Slot(this, CoterminalAngle(150.5), CoterminalAngle(176.0)),
+    Slot(this, CoterminalAngle(212.0), CoterminalAngle(236.0)),
+    Slot(this, CoterminalAngle(274.0), CoterminalAngle(296.5)),
+    Slot(this, CoterminalAngle(328.5), CoterminalAngle(356.0))
   }
 {
   _is_setup = false;
@@ -27,10 +27,10 @@ Carousel::Carousel(StepperMotor* motor, Angle origin_offset)
 }
 
 
-Angle Carousel::angle()
+CoterminalAngle Carousel::angle()
 {
   if (!_is_setup)
-    return Angle(0.0);
+    return CoterminalAngle(0.0);
   
   return _motor->angle();
 }
@@ -86,7 +86,7 @@ void Carousel::setup()
   // uncoverd we wont know the exact angle of the carusel
   // so now turn half a rotation and repeat to enusre an
   // accurate calibration proccess
-  _motor->turn_angle(Angle(180.0), _direction, _speed);
+  _motor->turn_angle(CoterminalAngle(180.0), _direction, _speed);
   while (_motor->is_turning())
     _motor->tick();
   

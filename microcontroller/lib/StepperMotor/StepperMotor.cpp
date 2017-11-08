@@ -40,13 +40,13 @@ StepperMotor::StepperMotor(AdafruitStepperMotor* motor, unsigned int num_steps, 
 }
 
 
-Angle StepperMotor::angle()
+CoterminalAngle StepperMotor::angle()
 {
-  return Angle::from_revolution((float)_current_step/_total_steps);
+  return CoterminalAngle::from_revolution((float)_current_step/_total_steps);
 }
 
 
-void StepperMotor::turn_to_angle(Angle angle, Direction direction, float speed)
+void StepperMotor::turn_to_angle(CoterminalAngle angle, Direction direction, float speed)
 {
   unsigned int step = round(angle.to_revolution() * _total_steps);
   turn_to_step(step, direction, speed);
@@ -138,7 +138,7 @@ void StepperMotor::turn(Direction direction, float speed)
 }
 
 
-void StepperMotor::turn_angle(Angle angle, Direction direction, float speed)
+void StepperMotor::turn_angle(CoterminalAngle angle, Direction direction, float speed)
 {
   unsigned int steps = round(angle.to_revolution() * _total_steps);
   turn_steps(steps, direction, speed);

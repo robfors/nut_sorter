@@ -18,7 +18,7 @@
 #include "ForceSensor.h"
 #include "Slot.h"
 #include "Carousel.h"
-#include "Angle.h"
+#include "CoterminalAngle.h"
 
 
 class ForceMeasurement
@@ -26,7 +26,7 @@ class ForceMeasurement
   
   public:
   
-  ForceMeasurement(Carousel* carousel, Angle start_angle, Angle end_angle);
+  ForceMeasurement(Carousel* carousel, CoterminalAngle start_angle, CoterminalAngle end_angle);
   
   void setup();
   void tick();
@@ -37,10 +37,10 @@ class ForceMeasurement
   
   Slot* _current_slot;
   Carousel* _carousel;
-  Angle _end_angle;
+  CoterminalAngle _end_angle;
   int _distance_at_last_measurement;
   ForceSensor _sensor;
-  Angle _start_angle;
+  CoterminalAngle _start_angle;
   boolean _is_setup;
   boolean _was_slot_over_sensor;
   

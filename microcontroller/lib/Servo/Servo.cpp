@@ -6,7 +6,7 @@
 //
 
 
-Servo::Servo(int pin, Angle inital_angle)
+Servo::Servo(int pin, CoterminalAngle inital_angle)
 {
   _pin = pin;
   _inital_angle = inital_angle;
@@ -23,7 +23,7 @@ void Servo::setup()
 }
 
 
-void Servo::turn_to_angle(Angle angle)
+void Servo::turn_to_angle(CoterminalAngle angle)
 {
 	if (!_is_setup)
 	  return;

@@ -8,7 +8,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-#include "Angle.h"
+#include "CoterminalAngle.h"
 #include "AdafruitMotorShield.h"
 #include "Math.h"
 #include "Timer.h"

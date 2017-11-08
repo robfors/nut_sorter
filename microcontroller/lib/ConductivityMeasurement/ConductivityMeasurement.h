@@ -18,7 +18,7 @@
 #include "ConductivitySensor.h"
 #include "Slot.h"
 #include "Carousel.h"
-#include "Angle.h"
+#include "CoterminalAngle.h"
 
 
 class ConductivityMeasurement
@@ -26,7 +26,7 @@ class ConductivityMeasurement
   
   public:
   
-  ConductivityMeasurement(Carousel* carousel, Angle start_angle, Angle end_angle);
+  ConductivityMeasurement(Carousel* carousel, CoterminalAngle start_angle, CoterminalAngle end_angle);
   
   boolean setup();
   void tick();
@@ -38,10 +38,10 @@ class ConductivityMeasurement
   
   Slot* _current_slot;
   Carousel* _carousel;
-  Angle _end_angle;
+  CoterminalAngle _end_angle;
   int _distance_at_last_measurement;
   ConductivitySensor _sensor;
-  Angle _start_angle;
+  CoterminalAngle _start_angle;
   boolean _is_setup;
   boolean _was_slot_over_sensor;
   

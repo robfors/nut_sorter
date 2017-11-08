@@ -3,7 +3,7 @@
 
 /* This class abstracts the functionality of a stepper motor.
  * 
- * We use this to conveniently turn angles specified while keeping track
+ * We use this to conveniently turn angles you specify while keeping track
  * of its positon.
  * 
  * This class is a task. As such the 'tick()' method must be called
@@ -17,7 +17,7 @@
 #include "Math.h"
 #include "AdafruitMotorShield.h"
 #include "PeriodicTimer.h"
-#include "Angle.h"
+#include "CoterminalAngle.h"
 
 
 class StepperMotor
@@ -30,8 +30,8 @@ class StepperMotor
   
   StepperMotor(AdafruitStepperMotor* motor, unsigned int num_steps, StepType step_type, boolean invert_direction);
   
-  Angle angle();
-  void turn_to_angle(Angle angle, Direction direction, float speed);
+  CoterminalAngle angle();
+  void turn_to_angle(CoterminalAngle angle, Direction direction, float speed);
   void turn_to_step(unsigned int step, Direction direction, float speed);
   void reset_origin();
   unsigned int current_step();
@@ -39,7 +39,7 @@ class StepperMotor
   boolean is_stopped();
   void tick();
   void turn(Direction direction, float speed);
-  void turn_angle(Angle angle, Direction direction, float speed);
+  void turn_angle(CoterminalAngle angle, Direction direction, float speed);
   void turn_steps(unsigned long steps, Direction direction, float speed);
   boolean is_turning();
   

@@ -27,7 +27,7 @@ class Initializer
   
   public:
   
-  Initializer(Carousel* carousel, Angle start_angle);
+  Initializer(Carousel* carousel, CoterminalAngle start_angle);
   
   void setup();
   void tick();
@@ -36,7 +36,7 @@ class Initializer
   
   Slot* _next_slot;
   Carousel* _carousel;
-  Angle _start_angle;
+  CoterminalAngle _start_angle;
   boolean _is_setup;
   
   void _process_slot(Slot* slot);

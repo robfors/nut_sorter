@@ -7,7 +7,7 @@ int ConductivityMeasurement::_sensor_pins[] = {5, 6, 7};
 //
 
 
-ConductivityMeasurement::ConductivityMeasurement(Carousel* carousel, Angle start_angle, Angle end_angle)
+ConductivityMeasurement::ConductivityMeasurement(Carousel* carousel, CoterminalAngle start_angle, CoterminalAngle end_angle)
 : _sensor(_sensor_pins, _sensor_wire_count)
 {
   _end_angle = end_angle;

@@ -8,7 +8,7 @@
 
 #include <Arduino.h>
 
-#include "Angle.h"
+#include "CoterminalAngle.h"
 #include "Servo.h"
 
 class Chute
@@ -25,7 +25,7 @@ class Chute
   
   private:
   
-  static Angle _inital_angle;
+  static CoterminalAngle _inital_angle;
   
   boolean _is_setup;
   Servo _servo;

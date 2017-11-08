@@ -6,7 +6,7 @@
 //
 
 
-Interpreter::Interpreter(Carousel* carousel, Chute* chute, Angle start_angle)
+Interpreter::Interpreter(Carousel* carousel, Chute* chute, CoterminalAngle start_angle)
 {
   _chute = chute;
   _carousel = carousel;

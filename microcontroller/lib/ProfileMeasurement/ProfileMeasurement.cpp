@@ -6,7 +6,7 @@
 //
 
 
-ProfileMeasurement::ProfileMeasurement(Carousel* carousel, Angle start_angle, Angle end_angle)
+ProfileMeasurement::ProfileMeasurement(Carousel* carousel, CoterminalAngle start_angle, CoterminalAngle end_angle)
 : _sensor(_pin, _light_sensor_threshold)
 {
   _end_angle = end_angle;

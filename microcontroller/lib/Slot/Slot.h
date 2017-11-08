@@ -10,7 +10,7 @@
 #include <Arduino.h>
 
 #include "Math.h"
-#include "Angle.h"
+#include "CoterminalAngle.h"
 #include "Profile.h"
 
 
@@ -26,14 +26,14 @@ class Slot
   boolean has_heavy_object;
   Profile profile;
   
-  Slot(Carousel* carousel, Angle start_offset_angle, Angle end_offset_angle);
+  Slot(Carousel* carousel, CoterminalAngle start_offset_angle, CoterminalAngle end_offset_angle);
   
-  boolean is_over(Angle angle);
-  boolean is_over(Angle start_angle, Angle end_angle);
+  boolean is_over(CoterminalAngle angle);
+  boolean is_over(CoterminalAngle start_angle, CoterminalAngle end_angle);
   int odometer();
   void reset_odometer();
-  Angle start_angle();
-  Angle end_angle();
+  CoterminalAngle start_angle();
+  CoterminalAngle end_angle();
   
   boolean operator==(const Slot* other_slot);
   
@@ -43,9 +43,9 @@ class Slot
   static const int _revolution_circumference = _revolution_radius * M_PI; // mm
   
   Carousel* _carousel;
-  Angle _end_offset_angle;
-  Angle _odometer_start_angle;
-  Angle _start_offset_angle;
+  CoterminalAngle _end_offset_angle;
+  CoterminalAngle _odometer_start_angle;
+  CoterminalAngle _start_offset_angle;
   
 };
 

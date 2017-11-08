@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-#include "Angle.h"
+#include "CoterminalAngle.h"
 #include "AdafruitMotorShield.h"
 #include "Math.h"
 #include "Timer.h"
@@ -29,24 +29,27 @@
 
 // all the angle offsets for every component can be adjusted here to
 //   account for any changes in hardware
-AdafruitMotorShield AFMS = AdafruitMotorShield();
-AdafruitStepperMotor* adafruit_stepper_motor = AFMS.getStepper(200, 2);
-StepperMotor stepper_motor(adafruit_stepper_motor, 200, StepperMotor::StepType::Microstep, false);
-Carousel carousel(&stepper_motor, Angle(66.5)); // this offset may need to be adjusted in different lighting condtions 
+AdafruitMotorShield motor_shield;
+AdafruitStepperMotor* stepper_motor_driver = motor_shield.getStepper(200, 2);
+StepperMotor stepper_motor(stepper_motor_driver, 200, StepperMotor::StepType::Microstep, false);
+
+Carousel carousel(&stepper_motor, CoterminalAngle(66.5)); // this offset may need to be adjusted in different lighting condtions 
 Chute chute;
 
-Initializer initializer(&carousel, Angle(360.0));
-FerromagneticMeasurement ferromagnetic_measurement(&carousel, Angle(123.0), Angle(125.5));
-ConductivityMeasurement conductivity_measurement(&carousel, Angle(179.0), Angle(196.5));
-ForceMeasurement force_measurement(&carousel, Angle(230.0), Angle(266.5));
-ProfileMeasurement profile_measurement(&carousel, Angle(295.0), Angle(298.5));
-Interpreter interpreter(&carousel, &chute, Angle(349.0));
+Initializer initializer(&carousel, CoterminalAngle(360.0));
+FerromagneticMeasurement ferromagnetic_measurement(&carousel, CoterminalAngle(123.0), CoterminalAngle(125.5));
+ConductivityMeasurement conductivity_measurement(&carousel, CoterminalAngle(179.0), CoterminalAngle(196.5));
+ForceMeasurement force_measurement(&carousel, CoterminalAngle(230.0), CoterminalAngle(266.5));
+ProfileMeasurement profile_measurement(&carousel, CoterminalAngle(295.0), CoterminalAngle(298.5));
+Interpreter interpreter(&carousel, &chute, CoterminalAngle(349.0));
+
 
 // call this in the event of an error
 void end()
 {
   while (true) {}
 }
+
 
 // setup every task (eg. pin modes)
 // some return false to indicate an error
@@ -56,7 +59,7 @@ void setup()
   Serial.println("|reset");
   Serial.println("calibrating...");
   Serial.println("|calibrating");
-  AFMS.begin();
+  motor_shield.begin();
   carousel.setup();
   chute.setup();
   initializer.setup();
@@ -80,6 +83,7 @@ void setup()
   Serial.println("|running");
   carousel.start();
 }
+
 
 // this is the reactor loop
 // no calls should block here!

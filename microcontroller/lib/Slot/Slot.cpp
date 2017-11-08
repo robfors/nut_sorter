@@ -7,7 +7,7 @@
 //
 
 
-Slot::Slot(Carousel* carousel, Angle start_offset_angle, Angle end_offset_angle)
+Slot::Slot(Carousel* carousel, CoterminalAngle start_offset_angle, CoterminalAngle end_offset_angle)
 {
   has_ferromagnetic_object = false;
   has_conductive_object = false;
@@ -21,13 +21,13 @@ Slot::Slot(Carousel* carousel, Angle start_offset_angle, Angle end_offset_angle)
 }
 
 
-boolean Slot::is_over(Angle angle)
+boolean Slot::is_over(CoterminalAngle angle)
 {
   return angle.is_between(start_angle(), end_angle());
 }
 
 
-boolean Slot::is_over(Angle sensor_start_angle, Angle sensor_end_angle)
+boolean Slot::is_over(CoterminalAngle sensor_start_angle, CoterminalAngle sensor_end_angle)
 {
   return 
     sensor_start_angle.is_between(start_angle(), end_angle()) ||
@@ -39,7 +39,7 @@ boolean Slot::is_over(Angle sensor_start_angle, Angle sensor_end_angle)
 
 int Slot::odometer()
 {
-  Angle angle_moved = start_angle() - _odometer_start_angle;
+  CoterminalAngle angle_moved = start_angle() - _odometer_start_angle;
   float revolution_moved = angle_moved.to_revolution();
   return _revolution_circumference * revolution_moved;
 }
@@ -51,13 +51,13 @@ void Slot::reset_odometer()
 }
 
 
-Angle Slot::start_angle()
+CoterminalAngle Slot::start_angle()
 {
   return _carousel->angle() + _start_offset_angle;
 }
 
 
-Angle Slot::end_angle()
+CoterminalAngle Slot::end_angle()
 {
   return _carousel->angle() + _end_offset_angle;
 }

@@ -17,7 +17,7 @@
 #include "Slot.h"
 #include "LightSensor.h"
 #include "StepperMotor.h"
-#include "Angle.h"
+#include "CoterminalAngle.h"
 
 
 class Carousel
@@ -25,9 +25,9 @@ class Carousel
   
   public:
   // the offset may need to be adjusted depending on lighting condtions
-  Carousel(StepperMotor* motor, Angle origin_offset);
+  Carousel(StepperMotor* motor, CoterminalAngle origin_offset);
   
-  Angle angle();
+  CoterminalAngle angle();
   Slot* first_slot(); // slot with the smallest start and end angle
   Slot* next_slot(Slot* slot); // in clockwise direction
   void setup();
@@ -44,7 +44,7 @@ class Carousel
   boolean _is_setup;
   LightSensor _light_sensor;
   StepperMotor* _motor;
-  Angle _origin_offset;
+  CoterminalAngle _origin_offset;
   Slot _slots[_num_slots];
   
 };

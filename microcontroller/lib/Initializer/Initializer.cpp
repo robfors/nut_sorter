@@ -6,7 +6,7 @@
 //
 
 
-Initializer::Initializer(Carousel* carousel, Angle start_angle)
+Initializer::Initializer(Carousel* carousel, CoterminalAngle start_angle)
 {
   _carousel = carousel;
   _next_slot = NULL;
