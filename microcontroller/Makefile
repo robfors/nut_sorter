@@ -68,6 +68,7 @@ CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/AdafruitMotorShield -L$(PROJECT_DIR)/l
 CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/CoterminalAngle -L$(PROJECT_DIR)/lib/CoterminalAngle
 CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/HMC5883L -L$(PROJECT_DIR)/lib/HMC5883L
 CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/Math -L$(PROJECT_DIR)/lib/Math
+CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/NativeExtensions -L$(PROJECT_DIR)/lib/NativeExtensions
 CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/PeriodicTimer -L$(PROJECT_DIR)/lib/PeriodicTimer
 CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/Servo -L$(PROJECT_DIR)/lib/Servo
 CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/StepperMotor -L$(PROJECT_DIR)/lib/StepperMotor
