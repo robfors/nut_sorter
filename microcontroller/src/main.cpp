@@ -5,7 +5,7 @@
 #include "AdafruitMotorShield.h"
 #include "StepperMotor.h"
 
-#include "NutSorter/NutSorter.h"
+//#include "NutSorter/NutSorter.h"
 
 #include "NutSorter/Profile.h"
 #include "NutSorter/Slot.h"
@@ -28,7 +28,10 @@
 //   account for any changes in hardware
 AdafruitMotorShield motor_shield;
 AdafruitStepperMotor* stepper_motor_driver = motor_shield.getStepper(200, 2);
+
 StepperMotor stepper_motor(stepper_motor_driver, 200, StepperMotor::StepType::Microstep, false);
+
+
 
 NutSorter::Carousel carousel(&stepper_motor, CoterminalAngle(66.5)); // this offset may need to be adjusted in different lighting condtions 
 NutSorter::Chute chute;

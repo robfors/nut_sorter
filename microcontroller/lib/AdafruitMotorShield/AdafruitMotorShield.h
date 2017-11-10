@@ -17,15 +17,6 @@
 #ifndef _ADAFRUIT_MOTTRSHIELD_H_
 #define _ADAFRUIT_MOTTRSHIELD_H_
 
-#include <inttypes.h>
-#include <Wire.h>
-
-#include "AdafruitDCMotor.h"
-#include "AdafruitStepperMotor.h"
-#include "utility/AdafruitMSPWMServoDriver.h"
-
-//#define MOTORDEBUG
-
 #define MICROSTEPS 16         // 8 or 16
 
 #define MOTOR1_A 2
@@ -47,6 +38,15 @@
 #define INTERLEAVE 3
 #define MICROSTEP 4
 
+#include <inttypes.h>
+#include <Wire.h>
+
+class AdafruitMotorShield;
+
+#include "AdafruitDCMotor.h"
+#include "AdafruitStepperMotor.h"
+#include "AdafruitMSPWMServoDriver.h"
+
 
 class AdafruitMotorShield
 {
@@ -58,7 +58,7 @@ class AdafruitMotorShield
   void begin(uint16_t freq = 1600);
   void setPWM(uint8_t pin, uint16_t val);
   void setPin(uint8_t pin, boolean val);
-  AdafruitDCMotor *getMotor(uint8_t n);
+  AdafruitDCMotor* getMotor(uint8_t n);
   AdafruitStepperMotor *getStepper(uint16_t steps, uint8_t n);
   
   private:

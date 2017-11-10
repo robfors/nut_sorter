@@ -15,8 +15,9 @@
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
-#include <AdafruitMSPWMServoDriver.h>
 #include <Wire.h>
+
+#include "AdafruitMotorShield.h"
 
 
 AdafruitMSPWMServoDriver::AdafruitMSPWMServoDriver(uint8_t addr)

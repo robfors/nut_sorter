@@ -14,17 +14,11 @@
  All text above must be included in any redistribution.
  ******************************************************************/
 
-#ifndef _ADAFRUIT_MOTTRSHIELD_H_
-#define _ADAFRUIT_MOTTRSHIELD_H_
+#ifndef _ADAFRUIT_MOTTRSHIELD_STEPPER_MOTOR_H_
+#define _ADAFRUIT_MOTTRSHIELD_STEPPER_MOTOR_H_
 
 #include <inttypes.h>
 #include <Wire.h>
-
-#include "AdafruitMotorShield.h"
-
-
-class AdafruitMotorShield;
-
 
 class AdafruitStepperMotor
 {
@@ -45,7 +39,7 @@ class AdafruitStepperMotor
   uint8_t PWMBpin, BIN1pin, BIN2pin;
   uint16_t revsteps; // # steps per revolution
   uint8_t currentstep;
-  AdafruitMotorShield *MC;
+  AdafruitMotorShield* MC;
   uint8_t steppernum;
   
 };

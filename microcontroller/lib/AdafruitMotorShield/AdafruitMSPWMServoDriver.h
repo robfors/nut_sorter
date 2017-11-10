@@ -15,10 +15,10 @@
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
-#ifndef _ADAFRUIT_MS_PWM_SERVO_DRIVER_H
-#define _ADAFRUIT_MS_PWM_SERVO_DRIVER_H
+#ifndef _ADAFRUIT_MS_PWM_SERVO_DRIVER_H_
+#define _ADAFRUIT_MS_PWM_SERVO_DRIVER_H_
 
-#include "Arduino.h"
+#include <Arduino.h>
 
 
 #define PCA9685_SUBADR1 0x2

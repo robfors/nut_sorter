@@ -15,7 +15,7 @@
 #include "Slot.h"
 #include "LightSensor.h"
 #include "StepperMotor.h"
-#include "NutSorter/Carousel.h"
+#include "Carousel.h"
 #include "Interpreter.h"
 #include "HMC5883L.h"
 #include "FerromagneticSensor.h"

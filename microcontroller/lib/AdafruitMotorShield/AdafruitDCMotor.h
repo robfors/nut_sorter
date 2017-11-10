@@ -14,17 +14,11 @@
  All text above must be included in any redistribution.
  ******************************************************************/
 
-#ifndef _ADAFRUIT_MOTTRSHIELD_H_
-#define _ADAFRUIT_MOTTRSHIELD_H_
+#ifndef _ADAFRUIT_MOTTRSHIELD_DC_MOTOR_H_
+#define _ADAFRUIT_MOTTRSHIELD_DC_MOTOR_H_
 
 #include <inttypes.h>
 #include <Wire.h>
-
-#include "AdafruitMotorShield.h"
-
-
-class AdafruitMotorShield;
-
 
 class AdafruitDCMotor
 {
@@ -39,7 +33,7 @@ class AdafruitDCMotor
   private:
   
   uint8_t PWMpin, IN1pin, IN2pin;
-  AdafruitMotorShield *MC;
+  AdafruitMotorShield* MC;
   uint8_t motornum;
   
 };
