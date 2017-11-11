@@ -17,25 +17,29 @@
 #ifndef _ADAFRUIT_MOTTRSHIELD_DC_MOTOR_H_
 #define _ADAFRUIT_MOTTRSHIELD_DC_MOTOR_H_
 
-#include <inttypes.h>
-#include <Wire.h>
 
-class AdafruitDCMotor
+namespace AdafruitMotorShield
 {
   
-  public:
+  class DCMotor
+  {
+    friend class Shield;
+    
+    public:
+    
+    DCMotor(void);
+    
+    void run(uint8_t);
+    void set_speed(uint8_t);
+    
+    private:
+    
+    uint8_t _pin_pwm, _pin_in_1, _pin_in_2;
+    PinDriver* _pin_driver;
+    
+  };
   
-  AdafruitDCMotor(void);
-  friend class AdafruitMotorShield;
-  void run(uint8_t);
-  void setSpeed(uint8_t);
-  
-  private:
-  
-  uint8_t PWMpin, IN1pin, IN2pin;
-  AdafruitMotorShield* MC;
-  uint8_t motornum;
-  
-};
+}
+
 
 #endif

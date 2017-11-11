@@ -11,10 +11,19 @@ MAKEFILE_DIR     := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 ### This is the path to where you have created/cloned your project
 PROJECT_DIR       = $(MAKEFILE_DIR)/
 
+
+### define function to recursively search for files
+## eg To find all the c files in the current directory:
+##    $(call rwildcard, , *.c)
+## eg To find all the .c and .h files in src:
+##    $(call rwildcard, src/, *.c *.h)
+## for more details see https://stackoverflow.com/questions/2483182/recursive-wildcards-in-gnu-make
+rwildcard = $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2) $(filter $(subst *,%,$2),$d))
+
+### find all .cpp files so we can compile them, even if we dont use them all
 #LOCAL_C_SRCS    = $(wildcard src/*.c)
-LOCAL_CPP_SRCS  = $(wildcard lib/**/*.cpp)
-LOCAL_CPP_SRCS  += $(wildcard src/*.cpp)
-LOCAL_CPP_SRCS  += $(wildcard src/**/*.cpp)
+LOCAL_CPP_SRCS  = $(call rwildcard, lib/, *.cpp)
+LOCAL_CPP_SRCS  += $(call rwildcard, src/, *.cpp)
 #LOCAL_CC_SRCS   = $(wildcard src/*.cc)
 #LOCAL_PDE_SRCS  = $(wildcard src/*.pde)
 #LOCAL_INO_SRCS  = $(wildcard src/*.ino)
@@ -34,8 +43,8 @@ ARDUINO_DIR       = $(PROJECT_DIR)/arduino-ide/arduino-1.8.0
 
 ### USER_LIB_PATH
 ### Path to where the your project's libraries are stored.
-# does not work fully
-USER_LIB_PATH     :=  $(realpath $(PROJECT_DIR)/lib)
+# does not work so ill just comment it out
+#USER_LIB_PATH     :=  $(realpath $(PROJECT_DIR)/lib)
 
 ### BOARD_TAG & BOARD_SUB
 ### For Arduino IDE 1.0.x
@@ -63,17 +72,10 @@ CFLAGS_STD        = -std=gnu11
 
 ### CXXFLAGS_STD
 CXXFLAGS_STD      = -std=gnu++11
-CXXFLAGS_STD      += -I$(PROJECT_DIR)/src -L$(PROJECT_DIR)/src
-CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/AdafruitMotorShield -L$(PROJECT_DIR)/lib/AdafruitMotorShield
-CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/CoterminalAngle -L$(PROJECT_DIR)/lib/CoterminalAngle
-CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/HMC5883L -L$(PROJECT_DIR)/lib/HMC5883L
-CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/Math -L$(PROJECT_DIR)/lib/Math
-CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/NativeExtensions -L$(PROJECT_DIR)/lib/NativeExtensions
-CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/PeriodicTimer -L$(PROJECT_DIR)/lib/PeriodicTimer
-CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/Servo -L$(PROJECT_DIR)/lib/Servo
-CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/StepperMotor -L$(PROJECT_DIR)/lib/StepperMotor
-CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/Timer -L$(PROJECT_DIR)/lib/Timer
-CXXFLAGS_STD      += -I$(PROJECT_DIR)/lib/VarSpeedServo -L$(PROJECT_DIR)/lib/VarSpeedServo
+# The root folders of each library directory have the header files that our code may include
+# Here, we append each of the libraries' root directory to the search path of the compiler
+libraries := $(wildcard lib/*/)
+CXXFLAGS_STD += $(foreach dir,$(libraries), -I$(dir))
 
 ### CPPFLAGS
 ### Flags you might want to set for debugging purpose. Comment to stop.

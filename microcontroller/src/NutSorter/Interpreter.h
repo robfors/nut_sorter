@@ -19,13 +19,6 @@
  * The system's core sorting logic can be found in '_process_slot()'.
  */
 
-#include <Arduino.h>
-
-#include "Slot.h"
-#include "Carousel.h"
-#include "Chute.h"
-#include "Profile.h"
-
 
 namespace NutSorter
 {
@@ -35,20 +28,14 @@ namespace NutSorter
     
     public:
     
-    Interpreter(Carousel* carousel, Chute* chute, CoterminalAngle start_angle);
-    
-    void setup();
-    void tick();
+    static void tick();
     
     private:
     
-    Chute* _chute;
-    Slot* _next_slot;
-    Carousel* _carousel;
-    CoterminalAngle _start_angle;
-    boolean _is_setup;
+    static Slot* _next_slot;
+    static CoterminalAngle _start_angle;
     
-    void _process_slot(Slot* slot);
+    static void _process_slot(Slot* slot);
     
   };
   

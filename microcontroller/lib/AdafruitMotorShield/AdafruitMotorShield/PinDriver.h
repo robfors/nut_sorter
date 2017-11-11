@@ -15,10 +15,8 @@
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
-#ifndef _ADAFRUIT_MS_PWM_SERVO_DRIVER_H_
-#define _ADAFRUIT_MS_PWM_SERVO_DRIVER_H_
-
-#include <Arduino.h>
+#ifndef _ADAFRUIT_MOTTRSHIELD_PIN_DRIVER_H_
+#define _ADAFRUIT_MOTTRSHIELD_PIN_DRIVER_H_
 
 
 #define PCA9685_SUBADR1 0x2
@@ -39,23 +37,31 @@
 #define ALLLED_OFF_H 0xFD
 
 
-class AdafruitMSPWMServoDriver
+namespace AdafruitMotorShield
 {
   
-  public:
+  class PinDriver
+  {
+    
+    public:
+    
+    PinDriver(uint8_t addr = 0x40);
+    void begin();
+    void reset();
+    void set_pwm_frequency(float frequency);
+    void set_pin_duty_cycle(uint8_t pin, uint16_t val);
+    void set_pin_state(uint8_t pin, boolean val);
+    
+    private:
+    
+    uint8_t _ic2_address;
+    uint8_t _read8(uint8_t addr);
+    void _write8(uint8_t addr, uint8_t d);
+    
+    void _set_pin_pwm_phases(uint8_t num, uint16_t phase_begin, uint16_t phase_end);
+    
+  };
   
-  AdafruitMSPWMServoDriver(uint8_t addr = 0x40);
-  void begin(void);
-  void reset(void);
-  void setPWMFreq(float freq);
-  void setPWM(uint8_t num, uint16_t on, uint16_t off);
-  
-  private:
-  
-  uint8_t _i2caddr;
-  uint8_t read8(uint8_t addr);
-  void write8(uint8_t addr, uint8_t d);
-  
-};
+}
 
 #endif

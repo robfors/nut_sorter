@@ -11,14 +11,6 @@
  * any given point in time.
  */
 
-#include <Arduino.h>
-#include "PeriodicTimer.h"
-#include "StepperMotor.h"
-#include "CoterminalAngle.h"
-
-#include "Slot.h"
-#include "LightSensor.h"
-
 
 namespace NutSorter
 {
@@ -28,28 +20,22 @@ namespace NutSorter
     
     public:
     
-    // the offset may need to be adjusted depending on lighting condtions
-    Carousel(StepperMotor* motor, CoterminalAngle origin_offset);
-    
-    CoterminalAngle angle();
-    Slot* first_slot(); // slot with the smallest start and end angle
-    Slot* next_slot(Slot* slot); // in clockwise direction
-    void setup();
-    void start();
+    static CoterminalAngle angle();
+    static Slot* first_slot(); // slot with the smallest start and end angle
+    static Slot* next_slot(Slot* slot); // in clockwise direction
+    static void setup();
+    static void start();
     
     private:
     
-    static const StepperMotor::Direction _direction = StepperMotor::Direction::Forward;
-    static const unsigned int _light_sensor_pin = A1;
-    static const int _light_sensor_threshold = 500;
-    static const float _speed; // rpm
-    static const int _num_slots = 6;
+    static StepperMotor::Direction _direction;
+    static float _speed; // rpm
+    static CoterminalAngle _origin_offset;
+    static boolean _is_setup;
+    static Slot _slots[];
     
-    boolean _is_setup;
-    LightSensor _light_sensor;
-    StepperMotor* _motor;
-    CoterminalAngle _origin_offset;
-    Slot _slots[_num_slots];
+    static StepperMotor* _motor();
+    static int _slot_count();
     
   };
   

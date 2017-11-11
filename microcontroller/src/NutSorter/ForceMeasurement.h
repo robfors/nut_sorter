@@ -13,14 +13,6 @@
  * measurment variables.
  */
 
-#include <Arduino.h>
-
-#include "CoterminalAngle.h"
-
-#include "ForceSensor.h"
-#include "Slot.h"
-#include "Carousel.h"
-
 
 namespace NutSorter
 {
@@ -30,26 +22,18 @@ namespace NutSorter
     
     public:
     
-    ForceMeasurement(Carousel* carousel, CoterminalAngle start_angle, CoterminalAngle end_angle);
-    
-    void setup();
-    void tick();
+    static void tick();
     
     private:
     
-    static const int _pin = 0;
+    static Slot* _current_slot;
+    static CoterminalAngle _end_angle;
+    static int _distance_at_last_measurement;
+    static CoterminalAngle _start_angle;
+    static boolean _was_slot_over_sensor;
     
-    Slot* _current_slot;
-    Carousel* _carousel;
-    CoterminalAngle _end_angle;
-    int _distance_at_last_measurement;
-    ForceSensor _sensor;
-    CoterminalAngle _start_angle;
-    boolean _is_setup;
-    boolean _was_slot_over_sensor;
-    
-    void _finish_with_slot(boolean has_heavy_object);
-    boolean _is_slot_over_sensor();
+    static void _finish_with_slot(boolean has_heavy_object);
+    static boolean _is_slot_over_sensor();
     
   };
   

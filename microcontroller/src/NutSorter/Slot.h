@@ -7,13 +7,6 @@
  * It also acts as a storage for measurment data.
  */
 
-#include <Arduino.h>
-
-#include "Math.h"
-#include "CoterminalAngle.h"
-
-#include "Profile.h"
-
 
 namespace NutSorter
 {
@@ -30,7 +23,7 @@ namespace NutSorter
     boolean has_heavy_object;
     Profile profile;
     
-    Slot(Carousel* carousel, CoterminalAngle start_offset_angle, CoterminalAngle end_offset_angle);
+    Slot(CoterminalAngle start_offset_angle, CoterminalAngle end_offset_angle);
     
     boolean is_over(CoterminalAngle angle);
     boolean is_over(CoterminalAngle start_angle, CoterminalAngle end_angle);
@@ -46,7 +39,6 @@ namespace NutSorter
     static const int _revolution_radius = 85; // mm
     static const int _revolution_circumference = _revolution_radius * M_PI; // mm
     
-    Carousel* _carousel;
     CoterminalAngle _end_offset_angle;
     CoterminalAngle _odometer_start_angle;
     CoterminalAngle _start_offset_angle;

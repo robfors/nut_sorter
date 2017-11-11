@@ -14,8 +14,8 @@
  All text above must be included in any redistribution.
  ******************************************************************/
 
-#ifndef _ADAFRUIT_MOTTRSHIELD_H_
-#define _ADAFRUIT_MOTTRSHIELD_H_
+#ifndef _ADAFRUIT_MOTTR_SHIELD_ADAFRUIT_MOTTR_SHIELD_H_
+#define _ADAFRUIT_MOTTR_SHIELD_ADAFRUIT_MOTTR_SHIELD_H_
 
 #define MICROSTEPS 16         // 8 or 16
 
@@ -40,36 +40,17 @@
 
 #include <inttypes.h>
 #include <Wire.h>
+#include <Arduino.h>
 
-class AdafruitMotorShield;
-
-#include "AdafruitDCMotor.h"
-#include "AdafruitStepperMotor.h"
-#include "AdafruitMSPWMServoDriver.h"
-
-
-class AdafruitMotorShield
+namespace AdafruitMotorShield
 {
-  
-  public:
-  
-  AdafruitMotorShield(uint8_t addr = 0x60);
-  friend class AdafruitDCMotor;
-  void begin(uint16_t freq = 1600);
-  void setPWM(uint8_t pin, uint16_t val);
-  void setPin(uint8_t pin, boolean val);
-  AdafruitDCMotor* getMotor(uint8_t n);
-  AdafruitStepperMotor *getStepper(uint16_t steps, uint8_t n);
-  
-  private:
-  
-  uint8_t _addr;
-  uint16_t _freq;
-  AdafruitDCMotor dcmotors[4];
-  AdafruitStepperMotor steppers[2];
-  AdafruitMSPWMServoDriver _pwm;
-    
-};
+  class Shield;
+}
+
+#include "AdafruitMotorShield/PinDriver.h"
+#include "AdafruitMotorShield/DCMotor.h"
+#include "AdafruitMotorShield/StepperMotor.h"
+#include "AdafruitMotorShield/Shield.h"
 
 
 #endif

@@ -5,8 +5,6 @@
  * a force sensor is connected (after the amp curcit).
  */
 
-#include <Arduino.h>
-
 
 namespace NutSorter
 {

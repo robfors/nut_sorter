@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-#include "NutSorter/Main.h"
+#include "NutSorter/NutSorter.h"
 
 
 // setup every task (eg. pin modes)

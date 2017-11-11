@@ -6,7 +6,7 @@
 //
 
 
-StepperMotor::StepperMotor(AdafruitStepperMotor* motor, unsigned int num_steps, StepType step_type, boolean invert_direction)
+StepperMotor::StepperMotor(AdafruitMotorShield::StepperMotor* motor, unsigned int num_steps, StepType step_type, boolean invert_direction)
 : _step_timer(0, PeriodicTimer::Units::Microseconds)
 {
   _current_step = 0;
@@ -90,7 +90,7 @@ void StepperMotor::tick()
 {
   if (_is_turning && _step_timer.is_complete())
   {
-    _motor->onestep(_native_direction, _native_step_type);
+    _motor->step(_native_direction, _native_step_type);
     
     switch (_direction)
     {

@@ -16,11 +16,6 @@
  * The code will do this enough times to test for a connection between any two of the pins.
  * 
  */
- 
-
-#include <Arduino.h>
-
-#include "Timer.h"
 
 
 namespace NutSorter

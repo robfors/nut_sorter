@@ -18,14 +18,6 @@
  * it is.
  */
 
-#include <Arduino.h>
-
-#include "CoterminalAngle.h"
-
-#include "LightSensor.h"
-#include "Slot.h"
-#include "Carousel.h"
-
 
 namespace NutSorter
 {
@@ -35,27 +27,20 @@ namespace NutSorter
     
     public:
     
-    ProfileMeasurement(Carousel* carousel, CoterminalAngle start_angle, CoterminalAngle end_angle);
-    
-    void setup();
-    void tick();
+    static void tick();
     
     private:
     
-    static const int _pin = A2;
-    static const int _light_sensor_threshold = 200;
     
-    Slot* _current_slot;
-    Carousel* _carousel;
-    CoterminalAngle _end_angle;
-    int _distance_at_last_measurement;
-    LightSensor _sensor;
-    CoterminalAngle _start_angle;
-    boolean _is_setup;
-    boolean _was_slot_over_sensor;
     
-    void _finish_with_slot();
-    boolean _is_slot_over_sensor();
+    static Slot* _current_slot;
+    static CoterminalAngle _end_angle;
+    static int _distance_at_last_measurement;
+    static CoterminalAngle _start_angle;
+    static boolean _was_slot_over_sensor;
+    
+    static void _finish_with_slot();
+    static boolean _is_slot_over_sensor();
     
   };
   

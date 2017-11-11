@@ -1,55 +1,44 @@
-#include "Chute.h"
+#include "NutSorter.h"
 
 
-CoterminalAngle NutSorter::Chute::_inital_angle = CoterminalAngle(90.0);
-
-
-//
-// public
-//
-
-
-NutSorter::Chute::Chute()
-  : _servo(9, _inital_angle)
+namespace NutSorter
 {
-  _is_setup = false;
-}
-
-
-void NutSorter::Chute::setup()
-{
-  _servo.setup();
   
-  _is_setup = true;
-}
-
-
-void NutSorter::Chute::turn_to_cup_for(ObjectType object_type)
-{
-	if (!_is_setup)
-	  return;
+  //
+  // public
+  //
   
-  switch (object_type)
+  
+  void Chute::turn_to_cup_for(ObjectType object_type)
   {
-  case ObjectType::Coin:
-    _servo.turn_to_angle(CoterminalAngle(30.0));
-    break;
-  case ObjectType::SmallSteelNut:
-    _servo.turn_to_angle(CoterminalAngle(175.0));
-    break;
-  case ObjectType::SmallBrassNut:
-    _servo.turn_to_angle(CoterminalAngle(65.0));
-    break;
-  case ObjectType::BigBrassNut:
-    _servo.turn_to_angle(CoterminalAngle(140.0));
-    break;
-  case ObjectType::BigNylonNut:
-    _servo.turn_to_angle(CoterminalAngle(100.0));
-    break;
+  	Servo* servo = &Hardware::chute_servo;
+    
+    switch (object_type)
+    {
+      case ObjectType::Coin:
+        servo->turn_to_angle(CoterminalAngle(30.0));
+        break;
+      case ObjectType::SmallSteelNut:
+        servo->turn_to_angle(CoterminalAngle(175.0));
+        break;
+      case ObjectType::SmallBrassNut:
+        servo->turn_to_angle(CoterminalAngle(65.0));
+        break;
+      case ObjectType::BigBrassNut:
+        servo->turn_to_angle(CoterminalAngle(140.0));
+        break;
+      case ObjectType::BigNylonNut:
+        servo->turn_to_angle(CoterminalAngle(100.0));
+        break;
+      default:
+        //ignore
+        break;
+    }
   }
+  
+  
+  //
+  // private
+  //
+  
 }
-
-
-//
-// private
-//

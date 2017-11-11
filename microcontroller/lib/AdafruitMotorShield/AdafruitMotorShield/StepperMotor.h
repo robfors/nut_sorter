@@ -14,42 +14,33 @@
  All text above must be included in any redistribution.
  ******************************************************************/
 
-
-#include <Arduino.h>
-#include <Wire.h>
-
-#include "AdafruitMotorShield.h"
+#ifndef _ADAFRUIT_MOTTRSHIELD_STEPPER_MOTOR_H_
+#define _ADAFRUIT_MOTTRSHIELD_STEPPER_MOTOR_H_
 
 
-AdafruitDCMotor::AdafruitDCMotor(void)
+namespace AdafruitMotorShield
 {
-  MC = NULL;
-  motornum = 0;
-  PWMpin = IN1pin = IN2pin = 0;
-}
-
-
-void AdafruitDCMotor::run(uint8_t cmd)
-{
-  switch (cmd)
+  
+  class StepperMotor
   {
-    case FORWARD:
-      MC->setPin(IN2pin, LOW);  // take low first to avoid 'break'
-      MC->setPin(IN1pin, HIGH);
-      break;
-    case BACKWARD:
-      MC->setPin(IN1pin, LOW);  // take low first to avoid 'break'
-      MC->setPin(IN2pin, HIGH);
-      break;
-    case RELEASE:
-      MC->setPin(IN1pin, LOW);
-      MC->setPin(IN2pin, LOW);
-      break;
-  }
+    friend class Shield;  
+    
+    public:
+    
+    StepperMotor();
+    
+    uint8_t step(uint8_t dir, uint8_t style);
+    void release();
+    
+    private:
+    
+    uint8_t _pin_pwm_a, _pin_in_a1, _pin_in_a2;
+    uint8_t _pin_pwm_b, _pin_in_b1, _pin_in_b2;
+    uint8_t _current_step;
+    PinDriver* _pin_driver;
+    
+  };
+  
 }
 
-
-void AdafruitDCMotor::setSpeed(uint8_t speed)
-{
-  MC->setPWM(PWMpin, speed*16);
-}
+#endif

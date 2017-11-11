@@ -16,11 +16,6 @@
  * object is being placed in it.
  */
 
-#include <Arduino.h>
-
-#include "Slot.h"
-#include "Carousel.h"
-
 
 namespace NutSorter
 {
@@ -30,19 +25,14 @@ namespace NutSorter
     
     public:
     
-    Initializer(Carousel* carousel, CoterminalAngle start_angle);
-    
-    void setup();
-    void tick();
+    static void tick();
     
     private:
     
-    Slot* _next_slot;
-    Carousel* _carousel;
-    CoterminalAngle _start_angle;
-    boolean _is_setup;
+    static Slot* _next_slot;
+    static CoterminalAngle _start_angle;
     
-    void _process_slot(Slot* slot);
+    static void _process_slot(Slot* slot);
     
   };
   

@@ -13,13 +13,6 @@
  * measurment variables.
  */
 
-#include <Arduino.h>
-#include "CoterminalAngle.h"
-
-#include "ConductivitySensor.h"
-#include "Slot.h"
-#include "Carousel.h"
-
 
 namespace NutSorter
 {
@@ -29,27 +22,18 @@ namespace NutSorter
     
     public:
     
-    ConductivityMeasurement(Carousel* carousel, CoterminalAngle start_angle, CoterminalAngle end_angle);
-    
-    boolean setup();
-    void tick();
+    static void tick();
     
     private:
     
-    static int _sensor_pins[3];
-    static const int _sensor_wire_count = 3;
+    static Slot* _current_slot;
+    static CoterminalAngle _end_angle;
+    static int _distance_at_last_measurement;
+    static CoterminalAngle _start_angle;
+    static boolean _was_slot_over_sensor;
     
-    Slot* _current_slot;
-    Carousel* _carousel;
-    CoterminalAngle _end_angle;
-    int _distance_at_last_measurement;
-    ConductivitySensor _sensor;
-    CoterminalAngle _start_angle;
-    boolean _is_setup;
-    boolean _was_slot_over_sensor;
-    
-    void _finish_with_slot(boolean has_ferromagnetic_object);
-    boolean _is_slot_over_sensor();
+    static void _finish_with_slot(boolean has_ferromagnetic_object);
+    static boolean _is_slot_over_sensor();
     
   };
   

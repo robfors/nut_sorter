@@ -1,85 +1,74 @@
-#include "ProfileMeasurement.h"
+#include "NutSorter.h"
 
 
-//
-// public
-//
-
-
-NutSorter::ProfileMeasurement::ProfileMeasurement(Carousel* carousel, CoterminalAngle start_angle, CoterminalAngle end_angle)
-: _sensor(_pin, _light_sensor_threshold)
+namespace NutSorter
 {
-  _end_angle = end_angle;
-  _carousel = carousel;
-  _current_slot = NULL;
-  _distance_at_last_measurement = 0;
-  _start_angle = start_angle;
-  _is_setup = false;
-  _was_slot_over_sensor = false;
-}
-
-
-void NutSorter::ProfileMeasurement::setup()
-{
-  _sensor.setup();
   
-  _current_slot = _carousel->first_slot();
-  _was_slot_over_sensor = false;
-  _is_setup = true;
-}
-
-
-void NutSorter::ProfileMeasurement::tick()
-{
-	if (!_is_setup)
-	  return;
+  //
+  // public
+  //
   
-  if (!_was_slot_over_sensor)
+  
+  void ProfileMeasurement::tick()
   {
-    if (_current_slot->is_over(_start_angle))
-    {
-      _current_slot->reset_odometer();
-      _distance_at_last_measurement = 0;
-      _was_slot_over_sensor = true;
-    }
-  }
-  else
-  {
-  	if (!_is_slot_over_sensor())
-    {
-      _finish_with_slot();
-      return;
-    }
+    LightSensor* sensor = &Hardware::profile_light_sensor;
     
-    int distance = (int)(_current_slot->odometer());
-    
-    if (distance >= _distance_at_last_measurement + 1)
+    if (!_was_slot_over_sensor)
     {
+      if (_current_slot->is_over(_start_angle))
+      {
+        _current_slot->reset_odometer();
+        _distance_at_last_measurement = 0;
+        _was_slot_over_sensor = true;
+      }
+    }
+    else
+    {
+      if (!_is_slot_over_sensor())
+      {
+        _finish_with_slot();
+        return;
+      }
       
-      //Serial.println(_sensor.read());
-      //Serial.println((byte)_sensor.read());
-      _current_slot->profile.add_sample(distance, _sensor.read());
-      _distance_at_last_measurement++;
+      int distance = (int)(_current_slot->odometer());
+      
+      if (distance >= _distance_at_last_measurement + 1)
+      {
+        
+        //Serial.println(_sensor.read());
+        //Serial.println((byte)_sensor.read());
+        _current_slot->profile.add_sample(distance, sensor->read());
+        _distance_at_last_measurement++;
+      }
     }
+    
   }
   
+  
+  //
+  // private
+  //
+  
+  
+  CoterminalAngle ProfileMeasurement::_start_angle = CoterminalAngle(295.0);
+  CoterminalAngle ProfileMeasurement::_end_angle = CoterminalAngle(298.5);
+  Slot* ProfileMeasurement::_current_slot = Carousel::first_slot();
+  int ProfileMeasurement::_distance_at_last_measurement = 0;
+  boolean ProfileMeasurement::_was_slot_over_sensor = false;
+  
+  
+  void ProfileMeasurement::_finish_with_slot()
+  {
+    _current_slot = Carousel::next_slot(_current_slot);
+    _was_slot_over_sensor = false;
+  }
+  
+  
+  boolean ProfileMeasurement::_is_slot_over_sensor()
+  {
+    return _current_slot->is_over(_start_angle);
+  }
+  
+  
 }
-
-
-//
-// private
-//
-
-
-void NutSorter::ProfileMeasurement::_finish_with_slot()
-{
-  _current_slot = _carousel->next_slot(_current_slot);
-  _was_slot_over_sensor = false;
-}
-
-
-boolean NutSorter::ProfileMeasurement::_is_slot_over_sensor()
-{
-  //return _current_slot->is_over(_start_angle, _end_angle);
-  return _current_slot->is_over(_start_angle);
-}
+  

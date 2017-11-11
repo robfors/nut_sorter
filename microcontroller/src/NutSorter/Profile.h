@@ -9,8 +9,6 @@
  * the samples were not reliable enough to use these methods.
  */ 
 
-#include <Arduino.h>
-
 
 namespace NutSorter
 {

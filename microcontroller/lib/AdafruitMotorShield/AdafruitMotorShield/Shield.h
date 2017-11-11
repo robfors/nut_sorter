@@ -14,34 +14,35 @@
  All text above must be included in any redistribution.
  ******************************************************************/
 
-#ifndef _ADAFRUIT_MOTTRSHIELD_STEPPER_MOTOR_H_
-#define _ADAFRUIT_MOTTRSHIELD_STEPPER_MOTOR_H_
+#ifndef _ADAFRUIT_MOTTR_SHIELD_SHIELD_H_
+#define _ADAFRUIT_MOTTR_SHIELD_SHIELD_H_
 
-#include <inttypes.h>
-#include <Wire.h>
 
-class AdafruitStepperMotor
+namespace AdafruitMotorShield
 {
   
-  public:
+  class Shield
+  {
+    
+    friend class DCMotor;
+    friend class StepperMotor;
+    
+    public:
+    
+    Shield(uint8_t ic2_address = 0x60);
+    
+    void begin(uint16_t frequency = 1600);
+    DCMotor* get_dc_motor(uint8_t n);
+    StepperMotor* get_stepper_motor(uint8_t n);
+    
+    private:
+    
+    DCMotor* dc_motors[4];
+    StepperMotor* stepper_motors[2];
+    PinDriver _pin_driver;
+    
+  };
   
-  AdafruitStepperMotor(void);
-  friend class AdafruitMotorShield;
-  void step(uint16_t steps, uint8_t dir,  uint8_t style = SINGLE);
-  void setSpeed(uint16_t);
-  uint8_t onestep(uint8_t dir, uint8_t style);
-  void release(void);
-  uint32_t usperstep;
-  
-  private:
-  
-  uint8_t PWMApin, AIN1pin, AIN2pin;
-  uint8_t PWMBpin, BIN1pin, BIN2pin;
-  uint16_t revsteps; // # steps per revolution
-  uint8_t currentstep;
-  AdafruitMotorShield* MC;
-  uint8_t steppernum;
-  
-};
+}
 
 #endif

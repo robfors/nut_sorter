@@ -15,12 +15,6 @@
  * 
  */
 
-#include <Arduino.h>
-#include <Wire.h>
-#include <HMC5883L.h>
-
-#include "Timer.h"
-
 
 // field is measured in milli-gauss
 

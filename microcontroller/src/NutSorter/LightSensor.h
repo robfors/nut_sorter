@@ -7,8 +7,6 @@
  * When we read the pin, a higher voltage/value indicates more light.
  */
 
-#include <Arduino.h>
-
 
 namespace NutSorter
 {

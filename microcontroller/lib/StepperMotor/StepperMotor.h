@@ -28,7 +28,7 @@ class StepperMotor
   enum class Direction { Forward, Reverse };
   enum class StepType { Single, Double, Interleave, Microstep };
   
-  StepperMotor(AdafruitStepperMotor* motor, unsigned int num_steps, StepType step_type, boolean invert_direction);
+  StepperMotor(AdafruitMotorShield::StepperMotor* motor, unsigned int num_steps, StepType step_type, boolean invert_direction);
   
   CoterminalAngle angle();
   void turn_to_angle(CoterminalAngle angle, Direction direction, float speed);
@@ -47,7 +47,7 @@ class StepperMotor
   
   unsigned int _current_step;
   Direction _direction;
-  AdafruitStepperMotor* _motor;
+  AdafruitMotorShield::StepperMotor* _motor;
   int _native_step_type;
   int _native_direction; 
   boolean _is_direction_inverted;

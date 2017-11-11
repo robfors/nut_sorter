@@ -1,49 +1,39 @@
-#include "Initializer.h"
+#include "NutSorter.h"
 
 
-//
-// public
-//
-
-
-NutSorter::Initializer::Initializer(Carousel* carousel, CoterminalAngle start_angle)
+namespace NutSorter
 {
-  _carousel = carousel;
-  _next_slot = NULL;
-  _start_angle = start_angle;
-  _is_setup = false;
-}
-
-
-void NutSorter::Initializer::setup()
-{
-  _next_slot = _carousel->first_slot();  
-  _is_setup = true;
-}
-
-
-void NutSorter::Initializer::tick()
-{
-	if (!_is_setup)
-	  return;
   
-  if (_next_slot->is_over(_start_angle))
+  //
+  // public
+  //
+  
+  
+  void Initializer::tick()
   {
-    _process_slot(_next_slot);
-    _next_slot = _carousel->next_slot(_next_slot);
+    if (_next_slot->is_over(_start_angle))
+    {
+      _process_slot(_next_slot);
+      _next_slot = Carousel::next_slot(_next_slot);
+    }
   }
-}
-
-
-//
-// private
-//
-
-
-void NutSorter::Initializer::_process_slot(Slot* slot)
-{
-  slot->has_ferromagnetic_object = false;
-  slot->has_conductive_object = false;
-  slot->has_heavy_object = false;
-  slot->profile.clear();
+  
+  
+  //
+  // private
+  //
+  
+  
+  Slot* Initializer::_next_slot = Carousel::first_slot();
+  CoterminalAngle Initializer::_start_angle = CoterminalAngle(360.0);
+  
+  
+  void Initializer::_process_slot(Slot* slot)
+  {
+    slot->has_ferromagnetic_object = false;
+    slot->has_conductive_object = false;
+    slot->has_heavy_object = false;
+    slot->profile.clear();
+  }
+  
 }
