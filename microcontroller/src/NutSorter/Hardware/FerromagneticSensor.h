@@ -1,5 +1,5 @@
-#ifndef _NUT_SORTER_FERROMAGNETIC_SENSOR_H_
-#define _NUT_SORTER_FERROMAGNETIC_SENSOR_H_
+#ifndef _NUT_SORTER_HARDWARE_FERROMAGNETIC_SENSOR_H_
+#define _NUT_SORTER_HARDWARE_FERROMAGNETIC_SENSOR_H_
 
 /* This code communicates with a HMC5883L magnetometer to test for a
  * ferromagnetic material. Given this was not the intended use the HMC5883L
@@ -21,35 +21,38 @@
 
 namespace NutSorter
 {
-  
-  class FerromagneticSensor
+  namespace Hardware 
   {
     
-    public:
+    class FerromagneticSensor
+    {
+      
+      public:
+      
+      FerromagneticSensor();
+      
+      int field();
+      boolean is_ferromagnetic_material_present();
+      boolean setup();
+      void tick();
+      
+      private:
+      
+      static const int _average_n_factor = 500; // samples
+      static const int _sample_time = 1000; // ms
+      static const int _threshold = 250; // milli-gauss
+      
+      float _average_a_factor;
+      long _average_field;
+      HMC5883L _compass;
+      boolean _is_setup;
+      Timer _sample_timer;
+      
+      boolean _is_ferromagnetic_material_present();
+      
+    };
     
-    FerromagneticSensor();
-    
-    int field();
-    boolean is_ferromagnetic_material_present();
-    boolean setup();
-    void tick();
-    
-    private:
-    
-    static const int _average_n_factor = 500; // samples
-    static const int _sample_time = 1000; // ms
-    static const int _threshold = 250; // milli-gauss
-    
-    float _average_a_factor;
-    long _average_field;
-    HMC5883L _compass;
-    boolean _is_setup;
-    Timer _sample_timer;
-    
-    boolean _is_ferromagnetic_material_present();
-    
-  };
-  
+  }
 }
 
 #endif

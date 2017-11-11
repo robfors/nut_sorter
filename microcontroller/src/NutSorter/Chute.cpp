@@ -11,7 +11,7 @@ namespace NutSorter
   
   void Chute::turn_to_cup_for(ObjectType object_type)
   {
-  	Servo* servo = &Hardware::chute_servo;
+  	Servo* servo = &Hardware::Main::chute_servo;
     
     switch (object_type)
     {

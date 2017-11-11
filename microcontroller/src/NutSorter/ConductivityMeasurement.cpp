@@ -12,7 +12,7 @@ namespace NutSorter
   
   void ConductivityMeasurement::tick()
   {
-    ConductivitySensor* sensor = &Hardware::conductivity_sensor;
+    Hardware::ConductivitySensor* sensor = &Hardware::Main::conductivity_sensor;
     
     if (!_was_slot_over_sensor)
     {

@@ -13,10 +13,6 @@ namespace NutSorter
     
     public:
     
-    // here we declare all the system's concurrent tasks
-  
-    // all the angle offsets for every component can be adjusted here to
-    //   account for any changes in hardware
     
     static void setup();
     static void start();

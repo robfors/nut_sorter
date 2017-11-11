@@ -17,7 +17,7 @@ class Servo
   
   public:
   
-  Servo(int _pin, CoterminalAngle inital_angle);
+  Servo(int pin, CoterminalAngle inital_angle);
   
   void setup();
   void turn_to_angle(CoterminalAngle angle);

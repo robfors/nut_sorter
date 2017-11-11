@@ -11,7 +11,7 @@ namespace NutSorter
   
   void ProfileMeasurement::tick()
   {
-    LightSensor* sensor = &Hardware::profile_light_sensor;
+    Hardware::LightSensor* sensor = &Hardware::Main::profile_light_sensor;
     
     if (!_was_slot_over_sensor)
     {

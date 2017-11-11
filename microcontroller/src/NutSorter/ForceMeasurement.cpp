@@ -11,7 +11,7 @@ namespace NutSorter
   
   void ForceMeasurement::tick()
   {
-    ForceSensor* sensor = &Hardware::force_sensor;
+    Hardware::ForceSensor* sensor = &Hardware::Main::force_sensor;
     
     if (!_was_slot_over_sensor)
     {

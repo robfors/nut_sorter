@@ -4,28 +4,10 @@
 namespace NutSorter
 {
   
-  // here we declare all the system's concurrent tasks
-  
-  // all the angle offsets for every component can be adjusted here to
-  //   account for any changes in hardware
-  
-  
   void Main::setup()
   {
-    Hardware::setup();
+    Hardware::Main::setup();
     Carousel::setup();
-    //if (!Ferromagnetic_measurement::setup())
-    //{
-      //Serial.println("ferromagnetic measurer setup error...");
-      //Serial.println("|setup_error");
-      //end();
-    //}
-    //if (!conductivity_measurement.setup())
-    //{
-    //  Serial.println("conductivity measurer setup error...");
-    //  Serial.println("|setup_error");
-    //  end();
-    //}
   }
   
   
@@ -37,13 +19,13 @@ namespace NutSorter
   
   void Main::tick()
   {
-    Hardware::tick();
-    Initializer::tick();
-    FerromagneticMeasurement::tick();
+    Hardware::Main::tick();
     ConductivityMeasurement::tick();
+    FerromagneticMeasurement::tick();
     ForceMeasurement::tick();
+    Initializer::tick();
+    Interpreter::tick();    
     ProfileMeasurement::tick();
-    Interpreter::tick();
   }
   
 }

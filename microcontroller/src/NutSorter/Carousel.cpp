@@ -58,7 +58,7 @@ namespace NutSorter
   
   void Carousel::setup()
   {
-    LightSensor* light_sensor = &Hardware::carousel_calibrator_light_sensor;
+    Hardware::LightSensor* light_sensor = &Hardware::Main::carousel_calibrator_light_sensor;
     
     _motor()->turn(_direction, _speed);
     while (!light_sensor->is_lit())
@@ -114,7 +114,7 @@ namespace NutSorter
   
   inline StepperMotor* Carousel::_motor()
   {
-    return &Hardware::carousel_stepper_motor;
+    return &Hardware::Main::carousel_stepper_motor;
   }
   
   

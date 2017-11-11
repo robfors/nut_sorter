@@ -11,7 +11,7 @@ namespace NutSorter
   
   void FerromagneticMeasurement::tick()
   {
-    FerromagneticSensor* sensor = &Hardware::ferromagnetic_sensor;
+    Hardware::FerromagneticSensor* sensor = &Hardware::Main::ferromagnetic_sensor;
     
     if (!_was_slot_over_sensor)
     {
