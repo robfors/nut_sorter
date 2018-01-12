@@ -4,7 +4,7 @@
 #include "Timer.h"
 #include "HMC5883L.h"
 #include "StepperMotor.h"
-#include "Servo.h"
+#include "ServoMotor.h"
 #include "AdafruitMotorShield.h"
 
 #include "ConductivitySensor.h"

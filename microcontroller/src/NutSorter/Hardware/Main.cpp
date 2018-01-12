@@ -8,7 +8,7 @@ namespace NutSorter
     
     AdafruitMotorShield::Shield Main::motor_shield = AdafruitMotorShield::Shield();
     StepperMotor Main::carousel_stepper_motor = StepperMotor(motor_shield.get_stepper_motor(2), 200, StepperMotor::StepType::Microstep, false);
-    Servo Main::chute_servo = Servo(9, CoterminalAngle(90.0));
+    ServoMotor Main::chute_servo_motor = ServoMotor(9, CoterminalAngle(90.0));
     LightSensor Main::carousel_calibrator_light_sensor = LightSensor(A1, 500);
     LightSensor Main::profile_light_sensor = LightSensor(A2, 200);
     ConductivitySensor Main::conductivity_sensor = ConductivitySensor((int[]){5, 6, 7}, 3);
@@ -19,7 +19,7 @@ namespace NutSorter
     void Main::setup()
     {
       motor_shield.begin();
-      chute_servo.setup();
+      chute_servo_motor.setup();
       carousel_calibrator_light_sensor.setup();
       profile_light_sensor.setup();
       if (!conductivity_sensor.setup())
